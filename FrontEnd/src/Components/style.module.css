@@ -61,3 +61,22 @@ margin-right: 10%;
         color: #F34B50;
     }
 }
+.btn{
+    border: none;
+    background-color: green;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.bar{
+    display: none;
+}
+
+@media screen and (max-width: 900px) {
+    ul{
+        display: none !important;
+    }
+    .bar{
+        display: block;
+    }
+  }

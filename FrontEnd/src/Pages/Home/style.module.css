@@ -251,3 +251,10 @@
         }
     }
 }
+@media screen and (max-width: 900px) {
+    .herotext{
+        h1{
+            font-size: 40px !important;
+        }
+    }
+}

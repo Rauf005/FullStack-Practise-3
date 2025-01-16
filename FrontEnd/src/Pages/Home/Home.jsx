@@ -2,9 +2,11 @@ import React from 'react'
 import style from "./style.module.css"
 import { useState,useEffect } from 'react'
 import axios from "axios"
+import {Helmet} from "react-helmet"
+
 
 function Home() {
-
+    
     let [searchQuery, setSearchQuery] = useState('')
     let [products,setProducts]=useState([])
     function getData(){
@@ -17,8 +19,20 @@ function Home() {
        getData()
     },[])
 
+    function handleSearch(event) {
+        setSearchQuery(event.target.value)
+      }
+      const filteredProducts = products.filter(product => 
+        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      
+
   return (
+    
     <div className={style.home}>
+        <Helmet>
+            <title>Home</title>
+        </Helmet>
         <div className={style.hero}>
            <div className={style.herotext}>
            <p>Spring / Summer Collection 2017</p>
@@ -54,21 +68,28 @@ function Home() {
             <h1>New Arrivals</h1>
             <hr/>
             <div className={style.pages}>
+
                 <span style={{border:"none",backgroundColor:"#F34B50"}}>All</span>
                 <span>Women's</span>
                 <span>Accessories</span>
                 <span>Men's</span>
             </div>
+            <form action="">
+          <input value={searchQuery}  onChange={handleSearch} className={style.search} type="text" placeholder='Search'/>
+        </form>
             <div className={style.cards}>
-            {products.map(product=>(
+
+            {filteredProducts.map(product=>(
+                
                 <div className={style.card}>
+                    
                     <img src={product.image} alt="" />
                 <div>
                 <p>{product.name}</p>
                     <p>{product.description}</p>
                     <span>${product.price}</span>
                 </div>
-                    <button>Add To Cart</button>
+                    <button >Add To Cart</button>
                 </div>
             ))}
             </div>

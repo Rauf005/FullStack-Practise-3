@@ -2,7 +2,9 @@ import React from 'react'
 
 function Basket() {
   return (
-    <div>Basket</div>
+    <div>
+      
+    </div>
   )
 }
 
