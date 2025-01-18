@@ -3,10 +3,12 @@ import style from "./style.module.css"
 import { useState,useEffect } from 'react'
 import axios from "axios"
 import {Helmet} from "react-helmet"
+import { useContext } from 'react';
+import { basketContext } from '../../Context/BasketContext';
 
 
-function Home() {
-    
+function Home(product) {
+    let {basket,setBasket}=useContext(basketContext)
     let [searchQuery, setSearchQuery] = useState('')
     let [products,setProducts]=useState([])
     function getData(){
@@ -26,6 +28,16 @@ function Home() {
         product.name.toLowerCase().includes(searchQuery.toLowerCase())
       )
       
+      function handleAddBasket(product){
+        let findBasket=basket.find(item=>item._id==product._id)
+        if(findBasket){
+            findBasket.count++
+            setBasket([...basket])
+        }else{
+            setBasket([...basket,{...product,count:1}])
+           
+        }
+    }
 
   return (
     
@@ -89,7 +101,7 @@ function Home() {
                     <p>{product.description}</p>
                     <span>${product.price}</span>
                 </div>
-                    <button >Add To Cart</button>
+                    <button onClick={()=>handleAddBasket(product)} >Add To Cart</button>
                 </div>
             ))}
             </div>

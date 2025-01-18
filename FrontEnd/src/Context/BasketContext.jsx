@@ -1,24 +1,23 @@
-import { createContext, useEffect, useState } from "react";
-
-export let favoriteContext = createContext()
-
-
- function FavoriteProvider({children}){
-    let localFavorite=JSON.parse(localStorage.getItem("favorite"))
-    let [favorite,setFavorite]=useState(localFavorite ? localFavorite :[])
-
+import React, { useEffect } from 'react'
+import { useState } from 'react'
+import { createContext } from 'react'
+export let basketContext=createContext()
+function BasketProvider({children}) {
+    let localBasket= JSON.parse(localStorage.getItem("basket"))
+    let [basket,setBasket]=useState(localBasket ? localBasket : [])
     useEffect(()=>{
-        localStorage.setItem("favorite",JSON.stringify(favorite))
-    },[favorite])
-
-
+        localStorage.setItem("basket",JSON.stringify(basket))
+    },[basket])
+    
     let value={
-        favorite,
-        setFavorite
+        basket,
+        setBasket
     }
-     return  <favoriteContext.Provider value={value}>{children}</favoriteContext.Provider>
+  return (
+    <basketContext.Provider value={value}>
+      {children}
+    </basketContext.Provider>
+  )
+}
 
- }
-
-
- export default FavoriteProvider
+export default BasketProvider
